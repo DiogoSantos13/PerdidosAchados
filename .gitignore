@@ -1,0 +1,6 @@
+# API: base de dados e fotografias geradas ao correr
+api/perdidos_achados.db
+api/fotos/
+__pycache__/
+*.pyc
+.DS_Store

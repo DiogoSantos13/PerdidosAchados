@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Detalhe de um objeto -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.activity.DetalheObjetoActivity">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:navigationContentDescription="@string/voltar"
+        app:navigationIcon="@drawable/ic_voltar"
+        app:title="@string/detalhe_titulo" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/imagem"
+                android:layout_width="match_parent"
+                android:layout_height="260dp"
+                android:background="@color/fundo_foto"
+                android:contentDescription="@string/descricao_foto"
+                android:scaleType="centerCrop"
+                tools:src="@drawable/ic_sem_foto" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/texto_tipo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAllCaps="true"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        tools:text="Perdido" />
+
+                    <TextView
+                        android:id="@+id/texto_estado"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="@string/estado_resolvido"
+                        android:textAllCaps="true"
+                        android:textColor="@color/resolvido"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/texto_titulo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    tools:text="Carteira castanha em pele" />
+
+                <TextView
+                    android:id="@+id/texto_descricao"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:textSize="16sp"
+                    tools:text="Carteira castanha com cartão de cidadão." />
+
+                <TextView
+                    android:id="@+id/texto_categoria"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:textSize="15sp"
+                    tools:text="Categoria: Documentos" />
+
+                <TextView
+                    android:id="@+id/texto_local"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:textSize="15sp"
+                    tools:text="Local: Cantina" />
+
+                <TextView
+                    android:id="@+id/texto_data"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:textSize="15sp"
+                    tools:text="Data: 13/11/2026" />
+
+                <TextView
+                    android:id="@+id/texto_autor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:textSize="15sp"
+                    tools:text="Publicado por: Marta Ferreira" />
+
+                <TextView
+                    android:id="@+id/texto_distancia"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:textSize="15sp"
+                    android:visibility="gone"
+                    tools:text="Distância: a 120 m de si"
+                    tools:visibility="visible" />
+
+                <Button
+                    android:id="@+id/botao_mapa"
+                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/ver_no_mapa"
+                    app:icon="@drawable/ic_local" />
+
+                <Button
+                    android:id="@+id/botao_contactar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="@string/contactar" />
+
+                <TextView
+                    android:id="@+id/texto_contacto_aviso"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/contacto_requer_sessao"
+                    android:textSize="14sp"
+                    android:visibility="gone" />
+
+                <!-- Operações reservadas ao dono do objeto e ao administrador -->
+                <LinearLayout
+                    android:id="@+id/zona_gestao"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    tools:visibility="visible">
+
+                    <Button
+                        android:id="@+id/botao_estado"
+                        style="@style/Widget.Material3.Button.TonalButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/marcar_resolvido" />
+
+                    <Button
+                        android:id="@+id/botao_editar"
+                        style="@style/Widget.Material3.Button.OutlinedButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/editar" />
+
+                    <Button
+                        android:id="@+id/botao_eliminar"
+                        style="@style/Widget.Material3.Button.OutlinedButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/eliminar"
+                        android:textColor="@color/perdido" />
+                </LinearLayout>
+
+                <ProgressBar
+                    android:id="@+id/progresso"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="8dp"
+                    android:visibility="gone" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
