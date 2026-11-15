@@ -41,10 +41,9 @@ Para alojar num servidor WSGI, o ponto de entrada é `from app import app as app
 
 | Papel | E-mail | Palavra-passe |
 |---|---|---|
-| Administrador | admin@ipt.pt | Admin123! |
-| Utilizador | aluno25001@ipt.pt | Marta123! |
-| Utilizador | aluno25002@ipt.pt | Tiago123! |
-| Utilizador | aluno24117@ipt.pt | Ines123! |
+| Administrador | admin@ipt.pt | admin |
+| Utilizador | dfpds2005@gmail.com | diogo |
+| Utilizador | vital.gabriel2006@gmail.com | gabriel |
 
 ### Endpoints
 

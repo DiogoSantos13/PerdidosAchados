@@ -63,14 +63,14 @@
                 android:layout_marginTop="8dp"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                tools:text="Marta Ferreira" />
+                tools:text="Diogo Santos" />
 
             <TextView
                 android:id="@+id/texto_email"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="15sp"
-                tools:text="aluno25001@ipt.pt" />
+                tools:text="dfpds2005@gmail.com" />
 
             <TextView
                 android:id="@+id/texto_papel"
