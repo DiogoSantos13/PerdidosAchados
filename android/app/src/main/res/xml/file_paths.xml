@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Pastas que o FileProvider pode partilhar com outras apps (câmara) -->
+<paths>
+    <cache-path
+        name="fotos"
+        path="fotos/" />
+</paths>

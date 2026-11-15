@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Perdidos e Achados</string>
+
+    <!-- ===================== Ecrã inicial ===================== -->
+    <string name="separador_objetos">Objetos</string>
+    <string name="separador_meus">Os meus</string>
+    <string name="separador_conta">Conta</string>
+    <string name="separador_sobre">Sobre</string>
+    <string name="publicar">Publicar</string>
+
+    <!-- ===================== Lista de objetos ===================== -->
+    <string name="pesquisar">Pesquisar (ex.: chaves, biblioteca)</string>
+    <string name="filtro_todos">Todos</string>
+    <string name="filtro_perdidos">Perdidos</string>
+    <string name="filtro_achados">Achados</string>
+    <string name="filtro_perto">Perto de mim</string>
+    <string name="lista_vazia">Não foram encontrados objetos.</string>
+    <string name="meus_vazia">Ainda não publicou nenhum objeto.\nToque em «Publicar» para começar.</string>
+    <string name="meus_sem_sessao">Inicie sessão no separador «Conta» para ver os objetos que publicou.</string>
+    <string name="aviso_offline">Sem ligação ao servidor. A mostrar os objetos guardados neste dispositivo.</string>
+    <string name="tentar_novamente">Tentar novamente</string>
+    <string name="a_distancia">a %1$s</string>
+    <string name="descricao_foto">Fotografia do objeto</string>
+
+    <!-- ===================== Tipos e estados ===================== -->
+    <string name="tipo_perdido">Perdido</string>
+    <string name="tipo_achado">Achado</string>
+    <string name="estado_resolvido">Resolvido</string>
+
+    <!-- ===================== Detalhe do objeto ===================== -->
+    <string name="detalhe_titulo">Detalhe do objeto</string>
+    <string name="detalhe_categoria">Categoria: %1$s</string>
+    <string name="detalhe_local">Local: %1$s</string>
+    <string name="detalhe_data">Data: %1$s</string>
+    <string name="detalhe_autor">Publicado por: %1$s</string>
+    <string name="detalhe_distancia">Distância: a %1$s de si</string>
+    <string name="ver_no_mapa">Ver no mapa</string>
+    <string name="contactar">Contactar por e-mail</string>
+    <string name="contacto_requer_sessao">Inicie sessão para poder contactar quem publicou este objeto.</string>
+    <string name="email_assunto">Perdidos e Achados: %1$s</string>
+    <string name="marcar_resolvido">Marcar como resolvido</string>
+    <string name="marcar_ativo">Voltar a marcar como ativo</string>
+    <string name="estado_alterado">Estado atualizado.</string>
+    <string name="editar">Editar</string>
+    <string name="eliminar">Eliminar</string>
+    <string name="eliminar_titulo">Eliminar objeto</string>
+    <string name="eliminar_confirmar">Tem a certeza de que quer eliminar «%1$s»?\nEsta operação não pode ser desfeita.</string>
+    <string name="objeto_eliminado">Objeto eliminado.</string>
+
+    <!-- ===================== Formulário ===================== -->
+    <string name="formulario_titulo_novo">Publicar objeto</string>
+    <string name="formulario_titulo_editar">Editar objeto</string>
+    <string name="campo_tipo">O que aconteceu?</string>
+    <string name="tipo_perdi">Perdi um objeto</string>
+    <string name="tipo_achei">Achei um objeto</string>
+    <string name="campo_titulo">Título</string>
+    <string name="campo_descricao">Descrição</string>
+    <string name="campo_categoria">Categoria</string>
+    <string name="campo_data">Data em que foi perdido/achado</string>
+    <string name="campo_foto">Fotografia</string>
+    <string name="tirar_foto">Tirar foto</string>
+    <string name="escolher_galeria">Galeria</string>
+    <string name="campo_local">Local</string>
+    <string name="ajuda_local">Ex.: Bloco O, sala O107</string>
+    <string name="usar_localizacao">Usar a minha localização</string>
+    <string name="remover">Remover</string>
+    <string name="gps_sem_posicao">Posição GPS: não registada</string>
+    <string name="gps_posicao">Posição GPS: %1$s, %2$s</string>
+    <string name="gps_a_obter">A obter a localização…</string>
+    <string name="guardar">Guardar</string>
+    <string name="objeto_publicado">Objeto publicado.</string>
+    <string name="objeto_alterado">Alterações guardadas.</string>
+    <string name="sair_titulo">Sair sem guardar?</string>
+    <string name="sair_confirmar">As alterações que fez vão perder-se.</string>
+    <string name="sair_descartar">Sair</string>
+    <string name="sair_continuar">Continuar a editar</string>
+
+    <!-- As categorias têm de ser iguais às aceites pela API -->
+    <string-array name="categorias">
+        <item>Eletrónica</item>
+        <item>Documentos</item>
+        <item>Chaves</item>
+        <item>Roupa</item>
+        <item>Material escolar</item>
+        <item>Acessórios</item>
+        <item>Outros</item>
+    </string-array>
+
+    <!-- ===================== Conta ===================== -->
+    <string name="conta_sem_sessao">Pode consultar os objetos sem conta.\n\nPara publicar um objeto perdido ou achado, ou para contactar quem publicou, inicie sessão ou crie uma conta.</string>
+    <string name="iniciar_sessao">Iniciar sessão</string>
+    <string name="criar_conta">Criar conta</string>
+    <string name="entrar">Entrar</string>
+    <string name="ainda_sem_conta">Ainda não tem conta? Criar conta</string>
+    <string name="nome">Nome</string>
+    <string name="email">E-mail</string>
+    <string name="palavra_passe">Palavra-passe</string>
+    <string name="confirmar_palavra_passe">Confirmar palavra-passe</string>
+    <string name="ajuda_palavra_passe">Pelo menos 6 caracteres</string>
+    <string name="bem_vindo">Bem-vindo(a), %1$s!</string>
+    <string name="conta_criada">Conta criada com sucesso.</string>
+    <string name="perfil">Perfil: %1$s</string>
+    <string name="papel_admin">Administrador</string>
+    <string name="papel_utilizador">Utilizador</string>
+    <string name="terminar_sessao">Terminar sessão</string>
+    <string name="terminar_sessao_confirmar">Quer mesmo terminar a sessão?</string>
+    <string name="sessao_terminada">Sessão terminada.</string>
+    <string name="sessao_necessaria_titulo">Sessão necessária</string>
+    <string name="sessao_necessaria_publicar">É necessário iniciar sessão para publicar um objeto.</string>
+
+    <!-- ===================== Gerais ===================== -->
+    <string name="cancelar">Cancelar</string>
+    <string name="voltar">Voltar</string>
+
+    <!-- ===================== Mensagens de erro ===================== -->
+    <string name="erro_campo_obrigatorio">Este campo é obrigatório.</string>
+    <string name="erro_email_invalido">O e-mail não é válido.</string>
+    <string name="erro_nome_curto">O nome deve ter pelo menos %1$d caracteres.</string>
+    <string name="erro_password_curta">A palavra-passe deve ter pelo menos %1$d caracteres.</string>
+    <string name="erro_password_diferente">As palavras-passe não coincidem.</string>
+    <string name="erro_texto_curto">Escreva pelo menos %1$d caracteres.</string>
+    <string name="erro_data_futura">A data não pode ser no futuro.</string>
+    <string name="erro_ligacao">Não foi possível ligar ao servidor. Verifique a ligação à Internet e tente novamente.</string>
+    <string name="erro_inesperado">Ocorreu um erro inesperado. Tente novamente.</string>
+    <string name="erro_servidor">O servidor devolveu um erro (código %1$d). Tente novamente mais tarde.</string>
+    <string name="erro_sessao">A sessão expirou. Inicie sessão novamente.</string>
+    <string name="erro_permissao">Não tem permissão para efetuar esta operação.</string>
+    <string name="erro_nao_encontrado">Este objeto já não existe.</string>
+    <string name="erro_sem_app_mapas">Não existe nenhuma aplicação de mapas instalada.</string>
+    <string name="erro_sem_app_email">Não existe nenhuma aplicação de e-mail instalada. Contacto: %1$s</string>
+    <string name="erro_sem_camara">Não foi possível abrir a câmara.</string>
+    <string name="erro_sem_galeria">Não foi possível abrir a galeria.</string>
+    <string name="erro_ler_foto">Não foi possível ler a fotografia. Tente outra.</string>
+    <string name="camara_permissao_negada">Sem permissão para usar a câmara. Pode escolher uma fotografia da galeria ou dar a permissão nas definições do dispositivo.</string>
+    <string name="gps_permissao_negada">Sem permissão de localização. Pode dá-la nas definições do dispositivo.</string>
+    <string name="gps_desligado">A localização está desligada. Ligue-a nas definições do dispositivo.</string>
+    <string name="gps_falhou">Não foi possível obter a localização. Tente novamente num local com melhor sinal.</string>
+
+    <!-- ===================== Sobre ===================== -->
+    <string name="sobre_descricao">Aplicação para publicar e procurar objetos perdidos e achados no campus.</string>
+    <string name="sobre_titulo_curso">Curso e disciplina</string>
+    <string name="sobre_instituicao">Escola Superior de Tecnologia de Tomar</string>
+    <string name="sobre_curso">Curso: Licenciatura em Engenharia Informática</string>
+    <string name="sobre_disciplina">Disciplina: Desenvolvimento de Aplicações Móveis</string>
+    <string name="sobre_ano_letivo">Ano letivo: 2026/2027</string>
+    <string name="sobre_titulo_autores">Autores</string>
+
+    <!-- Autores do trabalho. Fotografias: trocar res/drawable/autor1.xml e autor2.xml
+         por autor1.jpg e autor2.jpg (mesmo nome, sem a extensão no código) -->
+    <string name="autor1_nome">Diogo Santos</string>
+    <string name="autor1_numero">Aluno n.º 27223</string>
+    <string name="autor2_nome">Gabriel Vital</string>
+    <string name="autor2_numero">Aluno n.º 27217</string>
+
+    <string name="sobre_titulo_bibliotecas">Bibliotecas e código de terceiros</string>
+    <string name="sobre_bibliotecas">• Retrofit 2.9.0 (Square, licença Apache 2.0) — chamadas à API REST.\nhttps://square.github.io/retrofit/\n\n• Gson e conversor Gson do Retrofit (Google/Square, Apache 2.0) — conversão entre JSON e objetos Kotlin.\nhttps://github.com/google/gson\n\n• OkHttp (Square, Apache 2.0) — cliente HTTP usado internamente pelo Retrofit.\nhttps://square.github.io/okhttp/\n\n• AndroidX: AppCompat, Activity, Core KTX, Fragment, RecyclerView, ViewPager2, ConstraintLayout (Google, Apache 2.0).\nhttps://developer.android.com/jetpack/androidx\n\n• Material Components for Android (Google, Apache 2.0) — componentes visuais.\nhttps://github.com/material-components/material-components-android\n\n• Ícones Material Symbols (Google, Apache 2.0).\nhttps://fonts.google.com/icons\n\n• Exemplos das aulas de DAM (API com Retrofit, Fragmentos com ViewPager2, Sensores, Armazenamento) — serviram de base à estrutura do código.\n\n• API REST própria, desenvolvida em Python com Flask (licença BSD).\nhttps://flask.palletsprojects.com/</string>
+</resources>

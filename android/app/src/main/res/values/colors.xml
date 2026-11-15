@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!-- Cores da aplicação -->
+    <color name="primaria">#1E5AA8</color>
+    <color name="primaria_escura">#9CC2F5</color>
+    <color name="perdido">#C62828</color>
+    <color name="achado">#2E7D32</color>
+    <color name="resolvido">#757575</color>
+    <color name="fundo_foto">#E0E0E0</color>
+    <color name="aviso_fundo">#FFF3CD</color>
+    <color name="aviso_texto">#664D03</color>
+</resources>

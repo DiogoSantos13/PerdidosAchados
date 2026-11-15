@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Separador "Conta": iniciar/terminar sessão -->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <!-- Visível quando NÃO há sessão iniciada -->
+        <LinearLayout
+            android:id="@+id/zona_sem_sessao"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/conta_sem_sessao"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/botao_entrar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="@string/iniciar_sessao" />
+
+            <Button
+                android:id="@+id/botao_registar"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/criar_conta" />
+        </LinearLayout>
+
+        <!-- Visível quando há sessão iniciada -->
+        <LinearLayout
+            android:id="@+id/zona_com_sessao"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_pessoa" />
+
+            <TextView
+                android:id="@+id/texto_nome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                tools:text="Marta Ferreira" />
+
+            <TextView
+                android:id="@+id/texto_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                tools:text="aluno25001@ipt.pt" />
+
+            <TextView
+                android:id="@+id/texto_papel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textSize="14sp"
+                tools:text="Perfil: Utilizador" />
+
+            <Button
+                android:id="@+id/botao_sair"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="@string/terminar_sessao" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>
