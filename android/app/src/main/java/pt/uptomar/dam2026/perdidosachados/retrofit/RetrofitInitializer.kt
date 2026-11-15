@@ -18,11 +18,17 @@ class RetrofitInitializer {
         /**
          * Endereço base da API (tem de terminar em "/").
          *
-         * - "http://10.0.2.2:5000/" -> API a correr no computador onde corre o emulador
-         * - para a entrega/Google Play, trocar pelo endereço público (de preferência HTTPS),
-         *   ex.: "https://o-vosso-utilizador.pythonanywhere.com/"
+         * Desenvolvimento local (API a correr no PC com "python app.py"):
+         *   "http://localhost:5000/" + no PC, com o emulador ligado, correr UMA vez:
+         *       adb reverse tcp:5000 tcp:5000
+         *   (o adb reencaminha a porta 5000 do emulador para a porta 5000 do PC;
+         *   é preciso repetir sempre que o emulador é reiniciado).
+         *   Alternativa sem adb: "http://10.0.2.2:5000/" (o "localhost" do PC visto
+         *   pelo emulador) — nalguns PCs dá timeout, daí usarmos o adb reverse.
+         *
+         * Entrega/Google Play: trocar pelo endereço público da API (HTTPS).
          */
-        const val BASE_URL = "http://10.0.2.2:5000/"
+        const val BASE_URL = "http://localhost:5000/"
 
         // O Retrofit é criado uma única vez e reutilizado em toda a app
         private val gson: Gson = GsonBuilder().create()

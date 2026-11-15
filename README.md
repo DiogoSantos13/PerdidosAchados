@@ -32,8 +32,13 @@ as contas iniciais e a lista de endpoints.
 ## Correr a app
 
 1. Abrir a pasta `android/` no Android Studio e esperar pela sincronização do Gradle.
-2. Com a API a correr no mesmo computador (`python app.py` no repositório da API, janela aberta), executar no emulador (a app usa `http://10.0.2.2:5000/`).
-3. Para um telemóvel real ou para a Google Play, alterar `BASE_URL` em
+2. Pôr a API a correr no PC (`python app.py` no repositório da API, janela aberta).
+3. Com o emulador ligado, reencaminhar a porta 5000 do emulador para o PC (repetir sempre que o emulador reinicia):
+   ```
+   "%LOCALAPPDATA%\Android\Sdk\platform-tools\adb.exe" reverse tcp:5000 tcp:5000
+   ```
+   A app usa `http://localhost:5000/`.
+4. Para um telemóvel real ou para a Google Play, alterar `BASE_URL` em
    `retrofit/RetrofitInitializer.kt` para o endereço público da API (HTTPS).
    Por segurança a app só aceita HTTP sem cifra para `10.0.2.2`/`localhost`
    (ver `res/xml/network_security_config.xml`).
