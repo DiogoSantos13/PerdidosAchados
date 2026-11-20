@@ -1,0 +1,100 @@
+package pt.ipt.dam2026.perdidosachados.ui.fragment
+
+import android.content.Intent
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.Fragment
+import pt.ipt.dam2026.perdidosachados.R
+import pt.ipt.dam2026.perdidosachados.databinding.FragmentContaBinding
+import pt.ipt.dam2026.perdidosachados.storage.SessionManager
+import pt.ipt.dam2026.perdidosachados.ui.activity.LoginActivity
+import pt.ipt.dam2026.perdidosachados.ui.activity.RegistoActivity
+
+/**
+ * Separador "Conta".
+ *
+ * Sem sessão: mostra os botões para iniciar sessão ou criar conta.
+ * Com sessão: mostra os dados do utilizador e o botão para terminar sessão.
+ */
+class ContaFragment : Fragment() {
+
+    // o binding só existe entre onCreateView e onDestroyView
+    private var _binding: FragmentContaBinding? = null
+    private val binding get() = _binding!!
+
+    private lateinit var sessao: SessionManager
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentContaBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        sessao = SessionManager(requireContext())
+
+        binding.botaoEntrar.setOnClickListener {
+            startActivity(Intent(requireContext(), LoginActivity::class.java))
+        }
+        binding.botaoRegistar.setOnClickListener {
+            startActivity(Intent(requireContext(), RegistoActivity::class.java))
+        }
+        binding.botaoSair.setOnClickListener {
+            confirmarTerminarSessao()
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // ao voltar do login/registo, o estado da sessão pode ter mudado
+        mostrarEstadoDaSessao()
+    }
+
+    /** Mostra a zona adequada, consoante exista ou não sessão iniciada. */
+    private fun mostrarEstadoDaSessao() {
+        val utilizador = sessao.utilizador()
+        if (utilizador == null) {
+            binding.zonaSemSessao.visibility = View.VISIBLE
+            binding.zonaComSessao.visibility = View.GONE
+        } else {
+            binding.zonaSemSessao.visibility = View.GONE
+            binding.zonaComSessao.visibility = View.VISIBLE
+            binding.textoNome.text = utilizador.nome
+            binding.textoEmail.text = utilizador.email
+            val papel = if (sessao.eAdmin()) {
+                getString(R.string.papel_admin)
+            } else {
+                getString(R.string.papel_utilizador)
+            }
+            binding.textoPapel.text = getString(R.string.perfil, papel)
+        }
+    }
+
+    /** Pede confirmação antes de terminar a sessão. */
+    private fun confirmarTerminarSessao() {
+        AlertDialog.Builder(requireContext())
+            .setTitle(R.string.terminar_sessao)
+            .setMessage(R.string.terminar_sessao_confirmar)
+            .setPositiveButton(R.string.terminar_sessao) { _, _ ->
+                sessao.terminarSessao()
+                mostrarEstadoDaSessao()
+                Toast.makeText(requireContext(), R.string.sessao_terminada, Toast.LENGTH_SHORT)
+                    .show()
+            }
+            .setNegativeButton(R.string.cancelar, null)
+            .show()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+}
