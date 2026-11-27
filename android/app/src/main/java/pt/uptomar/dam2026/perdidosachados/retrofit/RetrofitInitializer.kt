@@ -2,18 +2,22 @@ package pt.uptomar.dam2026.perdidosachados.retrofit
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import okhttp3.OkHttpClient
 import pt.uptomar.dam2026.perdidosachados.retrofit.service.ApiService
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 
 /**
  * Parametriza a localização da API e cria o serviço Retrofit.
  *
  * Biblioteca Retrofit (Square, Apache 2.0): https://square.github.io/retrofit/
  * Biblioteca Gson (Google, Apache 2.0): https://github.com/google/gson
+ * Biblioteca OkHttp (Square, Apache 2.0), usada pelo Retrofit: https://square.github.io/okhttp/
  */
 class RetrofitInitializer {
 
+    /** Membros partilhados por toda a app: endereço da API e o serviço Retrofit (criado uma só vez). */
     companion object {
         /**
          * Endereço base da API (tem de terminar em "/").
@@ -31,10 +35,23 @@ class RetrofitInitializer {
         const val BASE_URL = "http://localhost:5000/"
 
         // O Retrofit é criado uma única vez e reutilizado em toda a app
-        private val gson: Gson = GsonBuilder().create()
+        // setLenient (como nos slides) aceita JSON menos rigoroso durante o desenvolvimento
+        private val gson: Gson = GsonBuilder().setLenient().create()
+
+        /**
+         * Cliente HTTP com tempos de espera de 60 segundos. A API alojada num plano gratuito
+         * (por exemplo Render) "adormece" quando não é usada e o primeiro pedido pode demorar
+         * cerca de um minuto; com o valor por omissão (10 s) esse pedido falhava.
+         */
+        private val clienteHttp: OkHttpClient = OkHttpClient.Builder()
+            .connectTimeout(60, TimeUnit.SECONDS)
+            .readTimeout(60, TimeUnit.SECONDS)
+            .writeTimeout(60, TimeUnit.SECONDS)
+            .build()
 
         private val retrofit: Retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)
+            .client(clienteHttp)
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
 

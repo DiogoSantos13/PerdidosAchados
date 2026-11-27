@@ -27,6 +27,7 @@ import retrofit2.Response
  */
 class LoginActivity : AppCompatActivity() {
 
+    /** Acesso às views do layout activity_login (View Binding). */
     private lateinit var binding: ActivityLoginBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -29,8 +29,10 @@ class ContaFragment : Fragment() {
 
     // o binding só existe entre onCreateView e onDestroyView
     private var _binding: FragmentContaBinding? = null
+    /** Atalho para o binding, válido apenas enquanto a view existe. */
     private val binding get() = _binding!!
 
+    /** Sessão do utilizador (mostra os dados da conta e permite terminar sessão). */
     private lateinit var sessao: SessionManager
 
     override fun onCreateView(

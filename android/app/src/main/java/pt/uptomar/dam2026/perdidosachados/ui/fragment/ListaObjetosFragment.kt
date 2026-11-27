@@ -41,6 +41,7 @@ import retrofit2.Response
  */
 class ListaObjetosFragment : Fragment() {
 
+    /** Chave do argumento e atraso da pesquisa; o método novaInstancia cria o fragmento. */
     companion object {
         private const val ARG_APENAS_MEUS = "apenasMeus"
 
@@ -60,11 +61,16 @@ class ListaObjetosFragment : Fragment() {
     // o binding só existe entre onCreateView e onDestroyView
     private var _binding: FragmentListaObjetosBinding? = null
 
+    /** Sessão do utilizador, de onde se obtém o token enviado à API. */
     private lateinit var sessao: SessionManager
+    /** Cópia local da última lista (Internal Storage), usada quando não há rede. */
     private lateinit var cache: ObjetosCache
+    /** Adapter do RecyclerView que desenha cada objeto da lista. */
     private lateinit var adapter: ObjetoListAdapter
+    /** Obtém a posição GPS para o modo "Perto de mim". */
     private lateinit var localizacaoHelper: LocalizacaoHelper
 
+    /** true no separador "Os meus" (só os objetos do utilizador); false em "Objetos". */
     private var apenasMeus = false
 
     /** Objetos recebidos da API (ou lidos do armazenamento local). */
@@ -305,6 +311,7 @@ class ListaObjetosFragment : Fragment() {
         binding.zonaVazia.visibility = View.VISIBLE
     }
 
+    /** Mostra uma mensagem curta (Toast), se o fragmento ainda estiver ligado à atividade. */
     private fun mostrarMensagem(mensagem: String) {
         val contexto = context ?: return
         Toast.makeText(contexto, mensagem, Toast.LENGTH_LONG).show()

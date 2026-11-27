@@ -50,6 +50,7 @@ import java.util.concurrent.Executors
  */
 class FormularioObjetoActivity : AppCompatActivity() {
 
+    /** Chave do extra do Intent, e limites de tamanho dos campos do formulário. */
     companion object {
         /** Extra do Intent com o objeto a editar, em JSON (ausente = objeto novo). */
         const val EXTRA_OBJETO = "objeto"
@@ -68,8 +69,11 @@ class FormularioObjetoActivity : AppCompatActivity() {
         private const val ESTADO_ALTERADO = "alterado"
     }
 
+    /** Acesso às views do layout activity_formulario_objeto (View Binding). */
     private lateinit var binding: ActivityFormularioObjetoBinding
+    /** Sessão do utilizador, de onde se obtém o token enviado à API. */
     private lateinit var sessao: SessionManager
+    /** Obtém a posição GPS do telemóvel quando o utilizador pede "usar a minha localização". */
     private lateinit var localizacaoHelper: LocalizacaoHelper
 
     /** Objeto em edição (null quando se está a publicar um objeto novo). */
@@ -80,6 +84,7 @@ class FormularioObjetoActivity : AppCompatActivity() {
 
     /** Coordenadas GPS do local (null se não foram registadas). */
     private var latitude: Double? = null
+    /** Longitude do local (null se não foi registada). */
     private var longitude: Double? = null
 
     /** Ficheiro onde a app da câmara vai gravar a fotografia. */
@@ -226,6 +231,7 @@ class FormularioObjetoActivity : AppCompatActivity() {
         ImageLoader.carregar(this, objeto.fotoUrl, binding.imagemFoto, R.drawable.ic_sem_foto)
     }
 
+    /** Liga cada botão do formulário (voltar, data, câmara, galeria, localização, guardar) à sua ação. */
     private fun configurarBotoes() {
         binding.toolbar.setNavigationOnClickListener {
             onBackPressedDispatcher.onBackPressed()
@@ -300,6 +306,7 @@ class FormularioObjetoActivity : AppCompatActivity() {
     // Data
     // ------------------------------------------------------------------
 
+    /** Mostra no botão a data escolhida, no formato DD/MM/AAAA. */
     private fun mostrarData() {
         binding.botaoData.text = Formatacao.dataParaMostrar(Formatacao.dataParaApi(dataOcorrencia))
     }
@@ -365,7 +372,7 @@ class FormularioObjetoActivity : AppCompatActivity() {
                     uriFoto = uri
                     fotoBase64 = base64
                     alterado = true
-                    binding.imagemFoto.tag = null   // cancela um carregamento pendente do ImageLoader
+                    ImageLoader.cancelar(this, binding.imagemFoto)   // cancela um carregamento pendente do Glide
                     binding.imagemFoto.setImageBitmap(bitmap)
                 } else {
                     mostrarMensagem(getString(R.string.erro_ler_foto))
@@ -594,6 +601,7 @@ class FormularioObjetoActivity : AppCompatActivity() {
         binding.botaoGuardar.isEnabled = !aDecorrer
     }
 
+    /** Mostra uma mensagem curta (Toast) ao utilizador. */
     private fun mostrarMensagem(mensagem: String) {
         Toast.makeText(this, mensagem, Toast.LENGTH_LONG).show()
     }

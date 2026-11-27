@@ -15,7 +15,9 @@ import java.io.File
  */
 class ObjetosCache(context: Context) {
 
+    /** Ficheiro objetos.json no armazenamento interno (Internal Storage), privado desta app. */
     private val ficheiro = File(context.applicationContext.filesDir, "objetos.json")
+    /** Conversor usado para escrever e ler a lista de objetos em JSON. */
     private val gson = Gson()
 
     /** Escreve a lista no ficheiro (substitui o conteúdo anterior). */

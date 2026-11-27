@@ -13,12 +13,52 @@ Aplicação Android nativa (Kotlin) para publicar e procurar objetos perdidos e 
 |---|---|
 | `android/` | Projeto Android Studio (Kotlin, Views + View Binding) |
 
+Código da app, em `android/app/src/main/java/pt/uptomar/dam2026/perdidosachados/`:
+
+| Pacote | Ficheiros | Para que serve |
+|---|---|---|
+| `model/` | `Objeto`, `ObjetoRequest`, `Utilizador`, `Autenticacao`, `APIResult` | Classes de dados que espelham o JSON da API (`@SerializedName` do Gson) |
+| `retrofit/` | `RetrofitInitializer`, `service/ApiService` | Endereço da API e a interface Retrofit com todos os pedidos REST |
+| `storage/` | `SessionManager`, `ObjetosCache`, `ImageLoader` | Armazenamento local: sessão (Shared Preferences), última lista (Internal Storage) e fotografias (Glide, com cache) |
+| `ui/activity/` | `MainActivity`, `LoginActivity`, `RegistoActivity`, `DetalheObjetoActivity`, `FormularioObjetoActivity` | Os ecrãs da app |
+| `ui/fragment/` | `ListaObjetosFragment`, `ContaFragment`, `SobreFragment` | Conteúdo dos separadores do ecrã inicial |
+| `ui/adapter/` | `MainPagerAdapter`, `ObjetoListAdapter` | Separadores (ViewPager2) e lista de objetos (RecyclerView) |
+| `util/` | `FotoHelper`, `LocalizacaoHelper`, `Distancia`, `Formatacao`, `ErrosApi`, `Interface` | Câmara/fotografia, GPS, distâncias, datas, mensagens de erro e utilitários de interface |
+
+Os layouts estão em `res/layout/` (um por ecrã, mais `item_objeto.xml` para cada cartão da lista) e
+todos os textos em `res/values/strings.xml`, em português.
+
+## Como a app funciona
+
+1. O `MainActivity` mostra quatro separadores (**Objetos**, **Os meus**, **Conta**, **Sobre**) com um `ViewPager2`.
+2. A lista (`ListaObjetosFragment`) pede os objetos à API com o Retrofit (`ApiService`). Se não houver rede,
+   mostra a última lista guardada em `ObjetosCache`.
+3. Tocar num objeto abre o `DetalheObjetoActivity`; o botão **+** abre o `FormularioObjetoActivity`
+   (câmara/galeria, GPS, data e campos de texto).
+4. O token JWT devolvido no login fica no `SessionManager` e é enviado em todos os pedidos que exigem
+   sessão, no cabeçalho `Authorization: Bearer <token>`.
+5. Os erros da API e da rede são traduzidos para mensagens em português em `ErrosApi`.
+
+## Onde está cada requisito da avaliação
+
+| Requisito | Onde está |
+|---|---|
+| Hardware: câmara | `FormularioObjetoActivity` + `FotoHelper` (`TakePicture` e `FileProvider`; galeria como alternativa) |
+| Hardware: GPS | `LocalizacaoHelper`, `ListaObjetosFragment` ("Perto de mim") e `Distancia` |
+| Dados locais | `SessionManager` (Shared Preferences), `ObjetosCache` (Internal Storage), `ImageLoader` (cache do Glide) |
+| API REST sem Firebase | `retrofit/` + repositório [PerdidosAchados-API](https://github.com/DiogoSantos13/PerdidosAchados-API) |
+| Autenticação e controlo de acesso | `LoginActivity`, `RegistoActivity`, `SessionManager`; a API valida o token e o dono/administrador |
+| Validação na inserção e edição | `FormularioObjetoActivity`, `RegistoActivity`, `LoginActivity` (e de novo na API) |
+| Confirmação ao eliminar | `DetalheObjetoActivity` (diálogo antes de eliminar); também ao terminar sessão e ao sair sem guardar |
+| Mensagens de erro | `util/ErrosApi` e `res/values/strings.xml` |
+| Ecrã "Sobre" | `SobreFragment`, `res/layout/fragment_sobre.xml` e os textos `sobre_*`/`autor*` em `strings.xml` |
+
 ## Funcionalidades
 
 - **Câmara** — fotografar o objeto ao publicá-lo (ou escolher da galeria).
 - **GPS** — registar onde o objeto foi perdido/achado, ordenar a lista por proximidade ("Perto de mim"), ver a distância e abrir o local no mapa.
 - **API REST** — listar, pesquisar, criar, editar e eliminar objetos; registo e login.
-- **Dados locais** — sessão em Shared Preferences; última lista de objetos em Internal Storage (consulta sem Internet); fotografias em Cache.
+- **Dados locais** — sessão em Shared Preferences; última lista de objetos em Internal Storage (consulta sem Internet); fotografias em Cache (gerida pelo Glide).
 - **Autenticação e controlo de acesso** — consulta livre; publicar e ver contactos exige login; editar/eliminar só o dono ou o administrador.
 - **Validação** — todos os campos na inserção e na edição; confirmação antes de eliminar, de terminar sessão e de sair sem guardar.
 - **Sobre** — separador no ecrã inicial com curso, disciplina, ano letivo, autores e bibliotecas.
@@ -51,6 +91,7 @@ permite compilar num caminho com acentos.
 
 - [Retrofit 2.9.0](https://square.github.io/retrofit/) e conversor Gson — chamadas à API REST (Apache 2.0)
 - [Gson](https://github.com/google/gson) — conversão JSON (Apache 2.0)
+- [Glide 4.16.0](https://github.com/bumptech/glide) — descarregar e mostrar as fotografias, com cache (BSD, MIT e Apache 2.0)
 - [OkHttp](https://square.github.io/okhttp/) — usado internamente pelo Retrofit (Apache 2.0)
 - AndroidX e [Material Components](https://github.com/material-components/material-components-android) (Apache 2.0)
 - Ícones [Material Symbols](https://fonts.google.com/icons) (Apache 2.0)

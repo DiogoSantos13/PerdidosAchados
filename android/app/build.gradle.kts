@@ -49,6 +49,8 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     // Conversor Gson: transforma o JSON da API em objetos Kotlin (https://github.com/google/gson)
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    // Glide: descarrega e mostra imagens, com cache (https://github.com/bumptech/glide)
+    implementation("com.github.bumptech.glide:glide:4.16.0")
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.espresso.core)

@@ -40,13 +40,17 @@ import retrofit2.Response
  */
 class DetalheObjetoActivity : AppCompatActivity() {
 
+    /** Chave do extra do Intent usado para abrir este ecrã. */
     companion object {
         /** Extra do Intent com o objeto a mostrar, em formato JSON. */
         const val EXTRA_OBJETO = "objeto"
     }
 
+    /** Acesso às views do layout activity_detalhe_objeto (View Binding). */
     private lateinit var binding: ActivityDetalheObjetoBinding
+    /** Sessão do utilizador (token e dados), guardada em SharedPreferences. */
     private lateinit var sessao: SessionManager
+    /** Objeto que está a ser mostrado (recebido no Intent em formato JSON). */
     private lateinit var objeto: Objeto
 
     // abre o formulário de edição; no regresso, se houve alterações, atualiza o ecrã
@@ -310,6 +314,7 @@ class DetalheObjetoActivity : AppCompatActivity() {
         binding.botaoEliminar.isEnabled = !aDecorrer
     }
 
+    /** Mostra uma mensagem de erro curta (Toast) ao utilizador. */
     private fun mostrarErro(mensagem: String) {
         Toast.makeText(this, mensagem, Toast.LENGTH_LONG).show()
     }

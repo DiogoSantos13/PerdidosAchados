@@ -25,6 +25,7 @@ data class Objeto(
     @SerializedName("contacto") val contacto: String?,         // só vem preenchido com sessão iniciada
     @SerializedName("criado_em") val criadoEm: String?
 ) {
+    /** Valores possíveis dos campos "tipo" e "estado" (iguais aos aceites pela API). */
     companion object {
         const val TIPO_PERDIDO = "perdido"
         const val TIPO_ACHADO = "achado"

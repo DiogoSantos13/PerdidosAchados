@@ -9,6 +9,7 @@ object Formatacao {
 
     // formato usado pela API (AAAA-MM-DD) e formato mostrado ao utilizador (DD/MM/AAAA)
     private const val FORMATO_API = "yyyy-MM-dd"
+    /** Formato DD/MM/AAAA mostrado ao utilizador. */
     private const val FORMATO_ECRA = "dd/MM/yyyy"
 
     /** Converte "2026-11-13" em "13/11/2026". Se a data for inválida devolve-a tal como veio. */
