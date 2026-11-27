@@ -16,6 +16,7 @@ import pt.uptomar.dam2026.perdidosachados.R
  */
 class SobreFragment : Fragment() {
 
+    /** Cria a view do separador a partir de fragment_sobre.xml (conteúdo estático). */
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

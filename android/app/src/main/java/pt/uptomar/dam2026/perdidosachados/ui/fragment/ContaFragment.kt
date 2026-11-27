@@ -35,6 +35,7 @@ class ContaFragment : Fragment() {
     /** Sessão do utilizador (mostra os dados da conta e permite terminar sessão). */
     private lateinit var sessao: SessionManager
 
+    /** Cria a view do separador a partir do layout fragment_conta.xml (View Binding). */
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -44,6 +45,7 @@ class ContaFragment : Fragment() {
         return binding.root
     }
 
+    /** Liga os botões (entrar, criar conta, terminar sessão) depois de a view estar criada. */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         sessao = SessionManager(requireContext())
@@ -59,6 +61,7 @@ class ContaFragment : Fragment() {
         }
     }
 
+    /** Ao voltar ao separador, atualiza o que se mostra (a sessão pode ter mudado no login/registo). */
     override fun onResume() {
         super.onResume()
         // ao voltar do login/registo, o estado da sessão pode ter mudado
@@ -95,7 +98,9 @@ class ContaFragment : Fragment() {
                 // o token expira sozinho ao fim de 30 dias)
                 RetrofitInitializer().apiService().logout(sessao.cabecalhoAutorizacao())
                     .enqueue(object : Callback<APIResult> {
+                        /** Resposta do servidor ignorada: a sessão local termina de qualquer forma. */
                         override fun onResponse(call: Call<APIResult>, response: Response<APIResult>) {}
+                        /** Sem rede: não faz mal, o token expira sozinho no servidor ao fim de 30 dias. */
                         override fun onFailure(call: Call<APIResult>, t: Throwable) {}
                     })
                 sessao.terminarSessao()
@@ -107,6 +112,7 @@ class ContaFragment : Fragment() {
             .show()
     }
 
+    /** Liberta o binding quando a view é destruída (evita fugas de memória). */
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

@@ -84,6 +84,7 @@ class ListaObjetosFragment : Fragment() {
 
     // pesquisa com atraso: evita um pedido à API por cada letra escrita
     private val handler = Handler(Looper.getMainLooper())
+    /** Tarefa que faz a pesquisa quando o utilizador pára de escrever. */
     private val pesquisaAtrasada = Runnable { carregarObjetos() }
 
     // pedido da permissão de localização (resposta do utilizador ao diálogo do sistema)
@@ -98,6 +99,7 @@ class ListaObjetosFragment : Fragment() {
         }
     }
 
+    /** Cria a view do separador a partir do layout fragment_lista_objetos.xml (View Binding). */
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -108,6 +110,7 @@ class ListaObjetosFragment : Fragment() {
         return binding.root
     }
 
+    /** Configura a lista, os filtros, a pesquisa e o botão "Tentar novamente". */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val binding = _binding ?: return
@@ -142,12 +145,15 @@ class ListaObjetosFragment : Fragment() {
         }
 
         binding.editPesquisa.addTextChangedListener(object : TextWatcher {
+            /** Não usado (obrigatório pela interface TextWatcher). */
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             }
 
+            /** Não usado (obrigatório pela interface TextWatcher). */
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
             }
 
+            /** Depois de cada alteração ao texto, reagenda a pesquisa (só corre quando se pára de escrever). */
             override fun afterTextChanged(s: Editable?) {
                 handler.removeCallbacks(pesquisaAtrasada)
                 handler.postDelayed(pesquisaAtrasada, ATRASO_PESQUISA)
@@ -159,6 +165,7 @@ class ListaObjetosFragment : Fragment() {
         }
     }
 
+    /** Recarrega a lista sempre que o separador fica visível. */
     override fun onResume() {
         super.onResume()
         // recarrega sempre que o separador fica visível: pode ter sido publicado,
@@ -216,6 +223,7 @@ class ListaObjetosFragment : Fragment() {
         pedidoEmCurso = pedido
 
         pedido.enqueue(object : Callback<List<Objeto>> {
+            /** Resposta da API: mostra a lista e guarda-a no dispositivo, ou mostra o erro. */
             override fun onResponse(call: Call<List<Objeto>>, response: Response<List<Objeto>>) {
                 val b = _binding ?: return
                 b.progresso.visibility = View.GONE
@@ -241,6 +249,7 @@ class ListaObjetosFragment : Fragment() {
                 }
             }
 
+            /** Sem ligação: mostra a última lista guardada no dispositivo (ObjetosCache), se existir. */
             override fun onFailure(call: Call<List<Objeto>>, t: Throwable) {
                 if (call.isCanceled) return   // pedido cancelado por nós: ignora-se
                 val b = _binding ?: return
@@ -365,6 +374,7 @@ class ListaObjetosFragment : Fragment() {
         }
     }
 
+    /** Cancela pedidos e pesquisas pendentes e liberta o binding. */
     override fun onDestroyView() {
         super.onDestroyView()
         // cancela tudo o que estiver pendente, para não mexer num ecrã que já não existe

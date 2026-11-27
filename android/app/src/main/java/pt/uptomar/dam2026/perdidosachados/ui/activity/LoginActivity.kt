@@ -30,6 +30,7 @@ class LoginActivity : AppCompatActivity() {
     /** Acesso às views do layout activity_login (View Binding). */
     private lateinit var binding: ActivityLoginBinding
 
+    /** Cria o ecrã de login e liga os botões (voltar, entrar e criar conta). */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -83,6 +84,7 @@ class LoginActivity : AppCompatActivity() {
         mostrarProgresso(true)
         val pedido = RetrofitInitializer().apiService().login(LoginRequest(email, password))
         pedido.enqueue(object : Callback<AuthResponse> {
+            /** Resposta da API: guarda a sessão e fecha o ecrã, ou mostra o erro (ex.: credenciais erradas). */
             override fun onResponse(call: Call<AuthResponse>, response: Response<AuthResponse>) {
                 mostrarProgresso(false)
                 val corpo = response.body()
@@ -106,6 +108,7 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
 
+            /** Falha de rede: mostra a mensagem de erro. */
             override fun onFailure(call: Call<AuthResponse>, t: Throwable) {
                 mostrarProgresso(false)
                 Toast.makeText(

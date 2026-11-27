@@ -149,6 +149,7 @@ class FormularioObjetoActivity : AppCompatActivity() {
     // Ciclo de vida
     // ------------------------------------------------------------------
 
+    /** Cria o formulário (objeto novo, ou edição se vier um objeto no Intent) e liga os botões às ações. */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -288,6 +289,7 @@ class FormularioObjetoActivity : AppCompatActivity() {
         }
     }
 
+    /** Quando o ecrã deixa de estar visível, pára o GPS para poupar bateria. */
     override fun onStop() {
         super.onStop()
         // deixa de usar o GPS quando o ecrã não está visível (poupa bateria)
@@ -297,6 +299,7 @@ class FormularioObjetoActivity : AppCompatActivity() {
         }
     }
 
+    /** Ao fechar o ecrã, termina a thread secundária (executor) usada para preparar a fotografia. */
     override fun onDestroy() {
         super.onDestroy()
         executor.shutdown()
@@ -521,6 +524,7 @@ class FormularioObjetoActivity : AppCompatActivity() {
 
         mostrarProgresso(true)
         pedido.enqueue(object : Callback<Objeto> {
+            /** Resposta da API: confirma a publicação/alteração e fecha o ecrã, ou mostra o erro de validação. */
             override fun onResponse(call: Call<Objeto>, response: Response<Objeto>) {
                 if (isFinishing || isDestroyed) return
                 mostrarProgresso(false)
@@ -541,6 +545,7 @@ class FormularioObjetoActivity : AppCompatActivity() {
                 }
             }
 
+            /** Falha de rede: mostra a mensagem de erro e mantém o formulário preenchido para tentar de novo. */
             override fun onFailure(call: Call<Objeto>, t: Throwable) {
                 if (isFinishing || isDestroyed) return
                 mostrarProgresso(false)
@@ -559,6 +564,7 @@ class FormularioObjetoActivity : AppCompatActivity() {
      */
     private fun configurarAvisoAoSair() {
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            /** Botão/gesto "voltar": se houver alterações por guardar, pede confirmação antes de sair. */
             override fun handleOnBackPressed() {
                 if (!haAlteracoesPorGuardar()) {
                     finish()

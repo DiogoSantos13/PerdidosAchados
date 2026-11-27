@@ -22,6 +22,7 @@ import androidx.core.content.ContextCompat
  *  3. o resultado chega à função [aoObter]: a localização, ou null se não
  *     foi possível obtê-la dentro do tempo limite.
  *
+ * @param context contexto do ecrã (só se guarda o contexto da aplicação)
  * @param aoObter função chamada (uma única vez por pedido) com o resultado
  */
 class LocalizacaoHelper(
@@ -141,9 +142,11 @@ class LocalizacaoHelper(
     override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {
     }
 
+    /** Não usado: só interessa receber a localização (onLocationChanged). */
     override fun onProviderEnabled(provider: String) {
     }
 
+    /** Não usado: se o GPS for desligado, o tempo limite devolve a última posição conhecida. */
     override fun onProviderDisabled(provider: String) {
     }
 }

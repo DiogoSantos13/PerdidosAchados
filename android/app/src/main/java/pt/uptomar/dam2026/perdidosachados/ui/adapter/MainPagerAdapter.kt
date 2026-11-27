@@ -22,6 +22,7 @@ class MainPagerAdapter(fragmentActivity: FragmentActivity) :
         private const val TOTAL_PAGINAS = 4
     }
 
+    /** Cria o fragmento de cada separador, de acordo com a posição. */
     override fun createFragment(position: Int): Fragment {
         return when (position) {
             PAGINA_OBJETOS -> ListaObjetosFragment.novaInstancia(false)
@@ -31,5 +32,6 @@ class MainPagerAdapter(fragmentActivity: FragmentActivity) :
         }
     }
 
+    /** Número total de separadores. */
     override fun getItemCount(): Int = TOTAL_PAGINAS
 }

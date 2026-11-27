@@ -35,6 +35,7 @@ class RegistoActivity : AppCompatActivity() {
     /** Acesso às views do layout activity_registo (View Binding). */
     private lateinit var binding: ActivityRegistoBinding
 
+    /** Cria o ecrã de registo e liga os botões às ações. */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -100,6 +101,7 @@ class RegistoActivity : AppCompatActivity() {
         val pedido = RetrofitInitializer().apiService()
             .registar(RegistoRequest(nome, email, password))
         pedido.enqueue(object : Callback<AuthResponse> {
+            /** Resposta da API: conta criada e sessão iniciada, ou mensagem de erro (ex.: email já registado). */
             override fun onResponse(call: Call<AuthResponse>, response: Response<AuthResponse>) {
                 mostrarProgresso(false)
                 val corpo = response.body()
@@ -121,6 +123,7 @@ class RegistoActivity : AppCompatActivity() {
                 }
             }
 
+            /** Falha de rede: mostra a mensagem de erro. */
             override fun onFailure(call: Call<AuthResponse>, t: Throwable) {
                 mostrarProgresso(false)
                 Toast.makeText(

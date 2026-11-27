@@ -62,6 +62,7 @@ class DetalheObjetoActivity : AppCompatActivity() {
         }
     }
 
+    /** Cria o ecrã: lê o objeto recebido no Intent, liga os botões às ações e pede à API a versão mais recente. */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -100,6 +101,7 @@ class DetalheObjetoActivity : AppCompatActivity() {
         atualizarDaApi()
     }
 
+    /** Ao voltar a este ecrã, volta a desenhá-lo (a sessão pode ter mudado, ex.: login feito a partir daqui). */
     override fun onResume() {
         super.onResume()
         // a sessão pode ter mudado entretanto (ex.: login feito a partir daqui)
@@ -211,6 +213,7 @@ class DetalheObjetoActivity : AppCompatActivity() {
         val pedido = RetrofitInitializer().apiService()
             .obterObjeto(objeto.id, sessao.cabecalhoAutorizacao())
         pedido.enqueue(object : Callback<Objeto> {
+            /** Resposta da API: mostra o objeto atualizado ou, se já não existir (404), avisa e fecha o ecrã. */
             override fun onResponse(call: Call<Objeto>, response: Response<Objeto>) {
                 if (isFinishing || isDestroyed) return
                 val atualizado = response.body()
@@ -226,6 +229,7 @@ class DetalheObjetoActivity : AppCompatActivity() {
                 }
             }
 
+            /** Sem ligação: mantêm-se no ecrã os dados que vieram da lista. */
             override fun onFailure(call: Call<Objeto>, t: Throwable) {
                 // sem ligação: mantêm-se no ecrã os dados que vieram da lista
                 t.printStackTrace()
@@ -246,6 +250,7 @@ class DetalheObjetoActivity : AppCompatActivity() {
             objeto.id, sessao.cabecalhoAutorizacao(), ObjetoRequest(estado = novoEstado)
         )
         pedido.enqueue(object : Callback<Objeto> {
+            /** Resposta da API: mostra o novo estado, ou a mensagem de erro (ex.: sem permissão). */
             override fun onResponse(call: Call<Objeto>, response: Response<Objeto>) {
                 if (isFinishing || isDestroyed) return
                 mostrarProgresso(false)
@@ -261,6 +266,7 @@ class DetalheObjetoActivity : AppCompatActivity() {
                 }
             }
 
+            /** Falha de rede: esconde o indicador de progresso e mostra a mensagem de erro. */
             override fun onFailure(call: Call<Objeto>, t: Throwable) {
                 if (isFinishing || isDestroyed) return
                 mostrarProgresso(false)
@@ -285,6 +291,7 @@ class DetalheObjetoActivity : AppCompatActivity() {
         val pedido = RetrofitInitializer().apiService()
             .eliminarObjeto(objeto.id, sessao.cabecalhoAutorizacao())
         pedido.enqueue(object : Callback<APIResult> {
+            /** Resposta da API: se foi eliminado, avisa e fecha o ecrã; caso contrário mostra o erro. */
             override fun onResponse(call: Call<APIResult>, response: Response<APIResult>) {
                 if (isFinishing || isDestroyed) return
                 mostrarProgresso(false)
@@ -298,6 +305,7 @@ class DetalheObjetoActivity : AppCompatActivity() {
                 }
             }
 
+            /** Falha de rede: esconde o indicador de progresso e mostra a mensagem de erro. */
             override fun onFailure(call: Call<APIResult>, t: Throwable) {
                 if (isFinishing || isDestroyed) return
                 mostrarProgresso(false)

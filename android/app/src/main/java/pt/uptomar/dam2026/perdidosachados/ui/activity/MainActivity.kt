@@ -29,6 +29,7 @@ class MainActivity : AppCompatActivity() {
     /** Sessão do utilizador (para saber se tem sessão iniciada). */
     private lateinit var sessao: SessionManager
 
+    /** Cria o ecrã inicial: separadores (ViewPager2 + TabLayout) e o botão "Publicar". */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -51,6 +52,7 @@ class MainActivity : AppCompatActivity() {
 
         // o botão "Publicar" só faz sentido nos separadores com listas de objetos
         binding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            /** Mostra o botão "Publicar" só nos separadores com listas de objetos. */
             override fun onPageSelected(position: Int) {
                 if (position == MainPagerAdapter.PAGINA_OBJETOS ||
                     position == MainPagerAdapter.PAGINA_MEUS
