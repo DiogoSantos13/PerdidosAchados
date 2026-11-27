@@ -39,12 +39,14 @@ class RetrofitInitializer {
         private val gson: Gson = GsonBuilder().setLenient().create()
 
         /**
-         * Cliente HTTP com tempos de espera de 60 segundos. A API alojada num plano gratuito
-         * (por exemplo Render) "adormece" quando não é usada e o primeiro pedido pode demorar
-         * cerca de um minuto; com o valor por omissão (10 s) esse pedido falhava.
+         * Cliente HTTP com tempos de espera ajustados:
+         *  - ligação (connect): 15 s — se a API estiver desligada, o erro aparece depressa;
+         *  - resposta (read/write): 60 s — uma API alojada num plano gratuito (ex.: Render)
+         *    "adormece" quando não é usada, e o primeiro pedido pode demorar cerca de um minuto
+         *    a responder (a ligação é aceite logo; a demora está na resposta).
          */
         private val clienteHttp: OkHttpClient = OkHttpClient.Builder()
-            .connectTimeout(60, TimeUnit.SECONDS)
+            .connectTimeout(15, TimeUnit.SECONDS)
             .readTimeout(60, TimeUnit.SECONDS)
             .writeTimeout(60, TimeUnit.SECONDS)
             .build()
