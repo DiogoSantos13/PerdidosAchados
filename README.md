@@ -35,7 +35,7 @@ todos os textos em `res/values/strings.xml`, em português.
    mostra a última lista guardada em `ObjetosCache`.
 3. Tocar num objeto abre o `DetalheObjetoActivity`; o botão **+** abre o `FormularioObjetoActivity`
    (câmara/galeria, GPS, data e campos de texto).
-4. O token JWT devolvido no login fica no `SessionManager` e é enviado em todos os pedidos que exigem
+4. O token de sessão devolvido no login (gerado aleatoriamente pela API e guardado na base de dados dela) fica no `SessionManager` e é enviado em todos os pedidos que exigem
    sessão, no cabeçalho `Authorization: Bearer <token>`.
 5. Os erros da API e da rede são traduzidos para mensagens em português em `ErrosApi`.
 

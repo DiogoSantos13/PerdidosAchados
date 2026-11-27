@@ -29,7 +29,7 @@ interface ApiService {
 
     // ---------- Autenticação ----------
 
-    /** Inicia sessão com email e palavra-passe; a resposta traz o token JWT e o utilizador. */
+    /** Inicia sessão com email e palavra-passe; a resposta traz o token de sessão e o utilizador. */
     @POST("api/auth/login")
     fun login(@Body pedido: LoginRequest): Call<AuthResponse>
 
