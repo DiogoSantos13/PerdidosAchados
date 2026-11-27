@@ -365,7 +365,7 @@ class FormularioObjetoActivity : AppCompatActivity() {
                     uriFoto = uri
                     fotoBase64 = base64
                     alterado = true
-                    binding.imagemFoto.tag = null   // cancela um carregamento pendente do ImageLoader
+                    ImageLoader.cancelar(this, binding.imagemFoto)   // cancela um carregamento pendente do Glide
                     binding.imagemFoto.setImageBitmap(bitmap)
                 } else {
                     mostrarMensagem(getString(R.string.erro_ler_foto))

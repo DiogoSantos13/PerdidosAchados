@@ -18,7 +18,7 @@ Aplicação Android nativa (Kotlin) para publicar e procurar objetos perdidos e 
 - **Câmara** — fotografar o objeto ao publicá-lo (ou escolher da galeria).
 - **GPS** — registar onde o objeto foi perdido/achado, ordenar a lista por proximidade ("Perto de mim"), ver a distância e abrir o local no mapa.
 - **API REST** — listar, pesquisar, criar, editar e eliminar objetos; registo e login.
-- **Dados locais** — sessão em Shared Preferences; última lista de objetos em Internal Storage (consulta sem Internet); fotografias em Cache.
+- **Dados locais** — sessão em Shared Preferences; última lista de objetos em Internal Storage (consulta sem Internet); fotografias em Cache (gerida pelo Glide).
 - **Autenticação e controlo de acesso** — consulta livre; publicar e ver contactos exige login; editar/eliminar só o dono ou o administrador.
 - **Validação** — todos os campos na inserção e na edição; confirmação antes de eliminar, de terminar sessão e de sair sem guardar.
 - **Sobre** — separador no ecrã inicial com curso, disciplina, ano letivo, autores e bibliotecas.
@@ -51,6 +51,7 @@ permite compilar num caminho com acentos.
 
 - [Retrofit 2.9.0](https://square.github.io/retrofit/) e conversor Gson — chamadas à API REST (Apache 2.0)
 - [Gson](https://github.com/google/gson) — conversão JSON (Apache 2.0)
+- [Glide 4.16.0](https://github.com/bumptech/glide) — descarregar e mostrar as fotografias, com cache (BSD, MIT e Apache 2.0)
 - [OkHttp](https://square.github.io/okhttp/) — usado internamente pelo Retrofit (Apache 2.0)
 - AndroidX e [Material Components](https://github.com/material-components/material-components-android) (Apache 2.0)
 - Ícones [Material Symbols](https://fonts.google.com/icons) (Apache 2.0)

@@ -31,7 +31,8 @@ class RetrofitInitializer {
         const val BASE_URL = "http://localhost:5000/"
 
         // O Retrofit é criado uma única vez e reutilizado em toda a app
-        private val gson: Gson = GsonBuilder().create()
+        // setLenient (como nos slides) aceita JSON menos rigoroso durante o desenvolvimento
+        private val gson: Gson = GsonBuilder().setLenient().create()
 
         private val retrofit: Retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)

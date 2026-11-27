@@ -37,7 +37,8 @@
         <!-- Ecrã inicial: lista de objetos, conta e secção "Sobre" -->
         <activity
             android:name=".ui.activity.MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -47,13 +48,18 @@
 
         <activity
             android:name=".ui.activity.LoginActivity"
+            android:parentActivityName=".ui.activity.MainActivity"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".ui.activity.RegistoActivity"
+            android:parentActivityName=".ui.activity.MainActivity"
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".ui.activity.DetalheObjetoActivity" />
+        <activity
+            android:name=".ui.activity.DetalheObjetoActivity"
+            android:parentActivityName=".ui.activity.MainActivity" />
         <activity
             android:name=".ui.activity.FormularioObjetoActivity"
+            android:parentActivityName=".ui.activity.MainActivity"
             android:windowSoftInputMode="adjustResize" />
 
         <!-- FileProvider: permite à app da câmara escrever a fotografia num
