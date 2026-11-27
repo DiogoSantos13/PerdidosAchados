@@ -4,54 +4,12 @@ Trabalho prático de Desenvolvimento de Aplicações Móveis (2026/27) — Licen
 
 Aplicação Android nativa (Kotlin) para publicar e procurar objetos perdidos e achados no campus.
 
-**Autores:** Diogo Santos (n.º 27223) e Gabriel Vital (n.º 27217)
-**Package:** `pt.uptomar.dam2026.perdidosachados`
-
 ## Estrutura
 
 | Pasta | Conteúdo |
 |---|---|
 | `android/` | Projeto Android Studio (Kotlin, Views + View Binding) |
-
-Código da app, em `android/app/src/main/java/pt/uptomar/dam2026/perdidosachados/`:
-
-| Pacote | Ficheiros | Para que serve |
-|---|---|---|
-| `model/` | `Objeto`, `ObjetoRequest`, `Utilizador`, `Autenticacao`, `APIResult` | Classes de dados que espelham o JSON da API (`@SerializedName` do Gson) |
-| `retrofit/` | `RetrofitInitializer`, `service/ApiService` | Endereço da API e a interface Retrofit com todos os pedidos REST |
-| `storage/` | `SessionManager`, `ObjetosCache`, `ImageLoader` | Armazenamento local: sessão (Shared Preferences), última lista (Internal Storage) e fotografias (Glide, com cache) |
-| `ui/activity/` | `MainActivity`, `LoginActivity`, `RegistoActivity`, `DetalheObjetoActivity`, `FormularioObjetoActivity` | Os ecrãs da app |
-| `ui/fragment/` | `ListaObjetosFragment`, `ContaFragment`, `SobreFragment` | Conteúdo dos separadores do ecrã inicial |
-| `ui/adapter/` | `MainPagerAdapter`, `ObjetoListAdapter` | Separadores (ViewPager2) e lista de objetos (RecyclerView) |
-| `util/` | `FotoHelper`, `LocalizacaoHelper`, `Distancia`, `Formatacao`, `ErrosApi`, `Interface` | Câmara/fotografia, GPS, distâncias, datas, mensagens de erro e utilitários de interface |
-
-Os layouts estão em `res/layout/` (um por ecrã, mais `item_objeto.xml` para cada cartão da lista) e
-todos os textos em `res/values/strings.xml`, em português.
-
-## Como a app funciona
-
-1. O `MainActivity` mostra quatro separadores (**Objetos**, **Os meus**, **Conta**, **Sobre**) com um `ViewPager2`.
-2. A lista (`ListaObjetosFragment`) pede os objetos à API com o Retrofit (`ApiService`). Se não houver rede,
-   mostra a última lista guardada em `ObjetosCache`.
-3. Tocar num objeto abre o `DetalheObjetoActivity`; o botão **+** abre o `FormularioObjetoActivity`
-   (câmara/galeria, GPS, data e campos de texto).
-4. O token de sessão devolvido no login (gerado aleatoriamente pela API e guardado na base de dados dela) fica no `SessionManager` e é enviado em todos os pedidos que exigem
-   sessão, no cabeçalho `Authorization: Bearer <token>`.
-5. Os erros da API e da rede são traduzidos para mensagens em português em `ErrosApi`.
-
-## Onde está cada requisito da avaliação
-
-| Requisito | Onde está |
-|---|---|
-| Hardware: câmara | `FormularioObjetoActivity` + `FotoHelper` (`TakePicture` e `FileProvider`; galeria como alternativa) |
-| Hardware: GPS | `LocalizacaoHelper`, `ListaObjetosFragment` ("Perto de mim") e `Distancia` |
-| Dados locais | `SessionManager` (Shared Preferences), `ObjetosCache` (Internal Storage), `ImageLoader` (cache do Glide) |
-| API REST sem Firebase | `retrofit/` + repositório [PerdidosAchados-API](https://github.com/DiogoSantos13/PerdidosAchados-API) |
-| Autenticação e controlo de acesso | `LoginActivity`, `RegistoActivity`, `SessionManager`; a API valida o token e o dono/administrador |
-| Validação na inserção e edição | `FormularioObjetoActivity`, `RegistoActivity`, `LoginActivity` (e de novo na API) |
-| Confirmação ao eliminar | `DetalheObjetoActivity` (diálogo antes de eliminar); também ao terminar sessão e ao sair sem guardar |
-| Mensagens de erro | `util/ErrosApi` e `res/values/strings.xml` |
-| Ecrã "Sobre" | `SobreFragment`, `res/layout/fragment_sobre.xml` e os textos `sobre_*`/`autor*` em `strings.xml` |
+| `api/` | API REST em Python (Flask + SQLite), com dados de exemplo |
 
 ## Funcionalidades
 
@@ -63,29 +21,50 @@ todos os textos em `res/values/strings.xml`, em português.
 - **Validação** — todos os campos na inserção e na edição; confirmação antes de eliminar, de terminar sessão e de sair sem guardar.
 - **Sobre** — separador no ecrã inicial com curso, disciplina, ano letivo, autores e bibliotecas.
 
-## API REST
+## Correr a API
 
-A API está num repositório próprio: **https://github.com/DiogoSantos13/PerdidosAchados-API**
-(Python + Flask + SQLite). Lá estão as instruções para a correr no PC ou alojar online,
-as contas iniciais e a lista de endpoints.
+```bash
+cd api
+pip install -r requirements.txt
+python app.py          # fica em http://localhost:5000
+```
+
+A base de dados (`perdidos_achados.db`) é criada no primeiro arranque, já com dados de exemplo.
+Para repor os dados iniciais, apagar esse ficheiro e a pasta `fotos/`.
+
+Para alojar num servidor WSGI, o ponto de entrada é `from app import app as application`.
+
+### Utilizadores iniciais
+
+| Papel | E-mail | Palavra-passe |
+|---|---|---|
+| Administrador | admin@ipt.pt | Admin123! |
+| Utilizador | aluno25001@ipt.pt | Marta123! |
+| Utilizador | aluno25002@ipt.pt | Tiago123! |
+| Utilizador | aluno24117@ipt.pt | Ines123! |
+
+### Endpoints
+
+| Método | Caminho | Descrição | Acesso |
+|---|---|---|---|
+| POST | `/api/auth/registar` | Criar conta | livre |
+| POST | `/api/auth/login` | Iniciar sessão (devolve token) | livre |
+| GET | `/api/objetos?tipo=&q=&estado=` | Listar/pesquisar objetos | livre |
+| GET | `/api/objetos/meus` | Objetos do utilizador | login |
+| GET | `/api/objetos/{id}` | Um objeto | livre |
+| POST | `/api/objetos` | Publicar objeto | login |
+| PUT | `/api/objetos/{id}` | Alterar objeto | dono ou admin |
+| DELETE | `/api/objetos/{id}` | Eliminar objeto | dono ou admin |
+| GET | `/api/fotos/{ficheiro}` | Fotografia | livre |
+
+Autenticação: cabeçalho `Authorization: Bearer <token>`.
 
 ## Correr a app
 
 1. Abrir a pasta `android/` no Android Studio e esperar pela sincronização do Gradle.
-2. Pôr a API a correr no PC (`python app.py` no repositório da API, janela aberta).
-3. Com o emulador ligado, reencaminhar a porta 5000 do emulador para o PC (repetir sempre que o emulador reinicia):
-   ```
-   "%LOCALAPPDATA%\Android\Sdk\platform-tools\adb.exe" reverse tcp:5000 tcp:5000
-   ```
-   A app usa `http://localhost:5000/`.
-4. Para um telemóvel real ou para a Google Play, alterar `BASE_URL` em
-   `retrofit/RetrofitInitializer.kt` para o endereço público da API (HTTPS).
-   Por segurança a app só aceita HTTP sem cifra para `10.0.2.2`/`localhost`
-   (ver `res/xml/network_security_config.xml`).
-
-Notas para Windows/OneDrive: a pasta `build` é criada em `~/.gradle-builds/PerdidosAchados`
-(o OneDrive bloqueia ficheiros e fazia falhar a compilação) e `android.overridePathCheck=true`
-permite compilar num caminho com acentos.
+2. Com a API a correr no mesmo computador, executar no emulador (a app usa `http://10.0.2.2:5000/`).
+3. Para um telemóvel real ou para a Google Play, alterar `BASE_URL` em
+   `retrofit/RetrofitInitializer.kt` para o endereço público da API.
 
 ## Bibliotecas e código de terceiros
 
