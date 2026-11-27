@@ -26,11 +26,13 @@ import retrofit2.Response
  */
 class RegistoActivity : AppCompatActivity() {
 
+    /** Tamanhos mínimos validados no formulário de registo (iguais aos da API). */
     companion object {
         private const val NOME_MINIMO = 3
         private const val PASSWORD_MINIMO = 6
     }
 
+    /** Acesso às views do layout activity_registo (View Binding). */
     private lateinit var binding: ActivityRegistoBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {

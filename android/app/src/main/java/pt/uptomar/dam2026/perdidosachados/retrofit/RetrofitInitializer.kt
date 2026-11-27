@@ -14,6 +14,7 @@ import retrofit2.converter.gson.GsonConverterFactory
  */
 class RetrofitInitializer {
 
+    /** Membros partilhados por toda a app: endereço da API e o serviço Retrofit (criado uma só vez). */
     companion object {
         /**
          * Endereço base da API (tem de terminar em "/").

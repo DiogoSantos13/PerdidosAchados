@@ -24,7 +24,9 @@ import pt.uptomar.dam2026.perdidosachados.util.aplicarMargensDoSistema
  */
 class MainActivity : AppCompatActivity() {
 
+    /** Acesso às views do layout activity_main (View Binding). */
     private lateinit var binding: ActivityMainBinding
+    /** Sessão do utilizador (para saber se tem sessão iniciada). */
     private lateinit var sessao: SessionManager
 
     override fun onCreate(savedInstanceState: Bundle?) {

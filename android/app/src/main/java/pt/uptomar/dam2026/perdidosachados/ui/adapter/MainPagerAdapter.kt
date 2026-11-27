@@ -13,6 +13,7 @@ import pt.uptomar.dam2026.perdidosachados.ui.fragment.SobreFragment
 class MainPagerAdapter(fragmentActivity: FragmentActivity) :
     FragmentStateAdapter(fragmentActivity) {
 
+    /** Posição de cada separador no ViewPager2 e número total de separadores. */
     companion object {
         const val PAGINA_OBJETOS = 0
         const val PAGINA_MEUS = 1

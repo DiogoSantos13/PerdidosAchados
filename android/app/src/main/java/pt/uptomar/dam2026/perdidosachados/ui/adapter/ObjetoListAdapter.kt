@@ -25,6 +25,7 @@ class ObjetoListAdapter(
     private val aoClicar: (Objeto) -> Unit
 ) : RecyclerView.Adapter<ObjetoListAdapter.ViewHolder>() {
 
+    /** Objetos mostrados atualmente na lista (já ordenados/filtrados). */
     private var objetos: List<Objeto> = emptyList()
 
     // posição atual do utilizador; se for conhecida, mostra-se a distância a cada objeto
