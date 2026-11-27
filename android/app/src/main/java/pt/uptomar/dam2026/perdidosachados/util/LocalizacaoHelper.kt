@@ -29,14 +29,18 @@ class LocalizacaoHelper(
     private val aoObter: (Location?) -> Unit
 ) : LocationListener {
 
+    /** Constantes do pedido de localização. */
     companion object {
         /** Tempo máximo de espera por uma posição, em milissegundos. */
         private const val TEMPO_LIMITE = 15000L
     }
 
+    /** Contexto da aplicação (não retém a atividade, evitando fugas de memória). */
     private val contexto = context.applicationContext
+    /** Serviço do Android que fornece a localização (GPS e rede). */
     private val locationManager =
         contexto.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+    /** Agenda o tempo limite na thread principal. */
     private val handler = Handler(Looper.getMainLooper())
 
     // se o tempo limite for atingido, devolve a última posição conhecida (ou null)

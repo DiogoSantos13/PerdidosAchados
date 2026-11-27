@@ -12,6 +12,7 @@ import pt.uptomar.dam2026.perdidosachados.model.Utilizador
  */
 class SessionManager(context: Context) {
 
+    /** Nome do ficheiro de preferências e chaves usadas para guardar cada dado da sessão. */
     companion object {
         private const val FICHEIRO = "sessao"
         private const val CHAVE_TOKEN = "token"
@@ -22,6 +23,7 @@ class SessionManager(context: Context) {
         const val PAPEL_ADMIN = "admin"
     }
 
+    /** Ficheiro de SharedPreferences privado desta app, onde a sessão fica guardada. */
     private val preferencias: SharedPreferences =
         context.applicationContext.getSharedPreferences(FICHEIRO, Context.MODE_PRIVATE)
 
