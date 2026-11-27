@@ -22,17 +22,20 @@ class RetrofitInitializer {
         /**
          * Endereço base da API (tem de terminar em "/").
          *
+         * Por omissão é a API alojada no Render (HTTPS), que funciona em qualquer
+         * telemóvel ou emulador sem configurar nada. No plano gratuito o serviço
+         * "adormece" quando não é usado: o primeiro pedido pode demorar cerca de 1 minuto.
+         *
          * Desenvolvimento local (API a correr no PC com "python app.py"):
-         *   "http://localhost:5000/" + no PC, com o emulador ligado, correr UMA vez:
+         *   trocar por "http://localhost:5000/" e, no PC, com o emulador ligado,
+         *   correr UMA vez:
          *       adb reverse tcp:5000 tcp:5000
          *   (o adb reencaminha a porta 5000 do emulador para a porta 5000 do PC;
          *   é preciso repetir sempre que o emulador é reiniciado).
          *   Alternativa sem adb: "http://10.0.2.2:5000/" (o "localhost" do PC visto
          *   pelo emulador) — nalguns PCs dá timeout, daí usarmos o adb reverse.
-         *
-         * Entrega/Google Play: trocar pelo endereço público da API (HTTPS).
          */
-        const val BASE_URL = "http://localhost:5000/"
+        const val BASE_URL = "https://perdidosachados-api.onrender.com/"
 
         // O Retrofit é criado uma única vez e reutilizado em toda a app
         // setLenient (como nos slides) aceita JSON menos rigoroso durante o desenvolvimento
